@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Someone Special ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Pacifico&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <audio id="backgroundMusic" src="Best of Arijit Singh Mashup 2024  AMEET Mashup  Arijit Singh Love Songs  Best of Love Songs 2024.mp3" loop preload="auto"></audio>
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts-container"></div>
+    <div id="photoFloatLayer" class="photo-float-layer"></div>
+
+    <!-- Background Music Toggle -->
+    <div class="music-toggle">
+        <button id="musicBtn" title="Toggle background music">🔊</button>
+    </div>
+
+    <!-- Landing Page - Interactive Game -->
+    <section id="landingPage" class="page active">
+        <div class="landing-content">
+            <h1 class="title">For Someone Special ❤️</h1>
+            <p class="subtitle">A collection of mini games filled with love</p>
+            <div id="landingPhotoStrip" class="landing-photo-strip"></div>
+            
+            <!-- Interactive Landing Game -->
+            <div class="landing-game">
+                <p class="landing-instruction">Click all the hearts to unlock the games!</p>
+                <div id="landingHearts" class="landing-hearts-container">
+                    <!-- Hearts will be generated here -->
+                </div>
+                <div id="landingProgress" class="landing-progress">0/5 Hearts</div>
+            </div>
+
+            <button id="landingStartBtn" class="btn btn-start hidden" onclick="showGameSelect()">Start the Adventure →</button>
+        </div>
+    </section>
+
+    <!-- Game Selection Page -->
+    <section id="gameSelectPage" class="page">
+        <div class="game-select-content">
+            <h2>Select Your Challenge</h2>
+            <div class="game-select-buttons">
+                <button class="btn btn-select" onclick="startHeartCatch()">💖 Heart Catch Game</button>
+                <button class="btn btn-select" onclick="startMemoryMatch()">🧩 Memory Matching Game</button>
+                <button class="btn btn-select" onclick="startPhotoPuzzle()">🖼️ Photo Puzzle</button>
+                <button class="btn btn-select" onclick="startLoveQuiz()">💌 Love Quiz</button>
+                <button class="btn btn-select" onclick="startHeartChallenge()">🎯 Heart Challenge</button>
+            </div>
+            <button class="btn btn-back" onclick="backToLanding()">← Back</button>
+        </div>
+    </section>
+
+    <!-- Heart Catch Game Page -->
+    <section id="heartCatchPage" class="page">
+        <div class="game-container">
+            <div class="game-header">
+                <h2>💖 Heart Catch Game</h2>
+                <div class="game-stats">
+                    <p>Caught: <span id="heartCount">0</span>/10</p>
+                </div>
+            </div>
+            <div id="gameArea" class="game-area">
+                <div id="basket" class="basket">🧺</div>
+            </div>
+            <button class="btn btn-back" onclick="backToGameSelect()">← Back</button>
+        </div>
+    </section>
+
+    <!-- Memory Match Game Page -->
+    <section id="memoryMatchPage" class="page">
+        <div class="game-container">
+            <div class="game-header">
+                <h2>🧩 Memory Matching Game</h2>
+                <div class="game-stats">
+                    <p>Matches: <span id="matchCount">0</span>/6</p>
+                </div>
+            </div>
+            <div id="cardGrid" class="card-grid"></div>
+            <button class="btn btn-back" onclick="backToGameSelect()">← Back</button>
+        </div>
+    </section>
+
+    <!-- Photo Puzzle Game Page -->
+    <section id="photoPuzzlePage" class="page">
+        <div class="game-container">
+            <div class="game-header">
+                <h2>🧩 Photo Shuffle Puzzle</h2>
+                <div class="game-stats">
+                    <p>Moves: <span id="puzzleCount">0</span></p>
+                </div>
+            </div>
+            <div class="puzzle-container">
+                <div id="puzzleGrid" class="puzzle-grid"></div>
+                <div id="puzzlePreview" class="puzzle-preview">
+                    <p class="puzzle-guide-title">Target Order</p>
+                    <div class="puzzle-guide-grid">
+                        <span>1</span><span>2</span><span>3</span>
+                        <span>4</span><span>5</span><span>6</span>
+                        <span>7</span><span>8</span><span>9</span>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-back" onclick="backToGameSelect()">← Back</button>
+        </div>
+    </section>
+
+    <!-- Love Quiz Page -->
+    <section id="loveQuizPage" class="page">
+        <div class="game-container">
+            <div class="game-header">
+                <h2>💌 Love Quiz</h2>
+                <div class="game-stats">
+                    <p>Question: <span id="quizProgress">1</span>/3</p>
+                </div>
+            </div>
+            <div class="quiz-content">
+                <h3 id="quizQuestion">What makes me smile?</h3>
+                <div id="quizAnswers" class="quiz-answers"></div>
+            </div>
+            <button class="btn btn-back" onclick="backToGameSelect()">← Back</button>
+        </div>
+    </section>
+
+    <!-- Heart Challenge Page -->
+    <section id="heartChallengePage" class="page">
+        <div class="game-container">
+            <div class="game-header">
+                <h2>🎯 Heart Challenge</h2>
+                <div class="game-stats">
+                    <p>Clicked: <span id="heartsChallengeCount">0</span>/10 | Time: <span id="challengeTimer">30</span>s</p>
+                </div>
+            </div>
+            <div id="challengeArea" class="game-area"></div>
+            <button class="btn btn-back" onclick="backToGameSelect()">← Back</button>
+        </div>
+    </section>
+
+    <!-- Reward Overlay -->
+    <div id="rewardOverlay" class="reward-overlay hidden">
+        <div class="reward-content">
+            <button class="close-reward" onclick="closeReward()">✕</button>
+            <h2 id="rewardTitle">You Did It! ❤️</h2>
+            <p id="rewardMessage">Amazing work, you're wonderful!</p>
+            <img id="rewardImage" src="images/photo1.jpg" alt="Reward">
+            <button class="btn btn-reward" onclick="closeReward()">Continue</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

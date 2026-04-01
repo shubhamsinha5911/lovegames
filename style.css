@@ -1,0 +1,923 @@
+/* ================================
+   GLOBAL STYLES & ROMANTIC THEME
+   ================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #f8e8ff 100%);
+    color: #d1557c;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    font-weight: 700;
+}
+
+/* ================================
+   FLOATING HEARTS ANIMATION
+   ================================ */
+
+.floating-hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.photo-float-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.floating-photo {
+    position: absolute;
+    width: 82px;
+    height: 82px;
+    border-radius: 16px;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 30px rgba(209, 85, 124, 0.28);
+    opacity: 0.2;
+    animation: driftPhoto linear forwards;
+}
+
+@keyframes driftPhoto {
+    0% {
+        transform: translateY(110vh) rotate(-4deg) scale(0.92);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.22;
+    }
+    85% {
+        opacity: 0.22;
+    }
+    100% {
+        transform: translateY(-20vh) rotate(7deg) scale(1);
+        opacity: 0;
+    }
+}
+
+.heart {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.3;
+    animation: float 8s ease-in infinite;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ================================
+   PAGES & LAYOUT
+   ================================ */
+
+.page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 10;
+}
+
+.page.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ================================
+   LANDING PAGE - INTERACTIVE
+   ================================ */
+
+.landing-content,
+.game-select-content {
+    text-align: center;
+    z-index: 20;
+}
+
+.title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: #d1557c;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(209, 85, 124, 0.1);
+    animation: fadeInDown 1s ease-out;
+    font-weight: 800;
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    color: #a67eaa;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    animation: fadeInUp 1s ease-out;
+}
+
+.landing-photo-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(70px, 1fr));
+    gap: 0.8rem;
+    margin: 0 auto 1.2rem;
+    max-width: 420px;
+}
+
+.strip-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid rgba(255, 255, 255, 0.92);
+    box-shadow: 0 8px 22px rgba(209, 85, 124, 0.22);
+    transform: rotate(var(--rot, 0deg));
+}
+
+.landing-game {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2.5rem;
+    border-radius: 25px;
+    box-shadow: 0 20px 50px rgba(209, 85, 124, 0.15);
+    margin-bottom: 2rem;
+    min-width: 400px;
+}
+
+.landing-instruction {
+    font-size: 1.1rem;
+    color: #d1557c;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.landing-hearts-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.landing-heart-btn {
+    background: linear-gradient(135deg, #ff69b4 0%, #d1557c 100%);
+    border: none;
+    border-radius: 20px;
+    padding: 1.5rem;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(209, 85, 124, 0.2);
+    animation: heartBounce 0.5s ease-out;
+}
+
+@keyframes heartBounce {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.landing-heart-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(209, 85, 124, 0.3);
+}
+
+.landing-heart-btn.clicked {
+    background: rgba(255, 255, 255, 0.9);
+    color: #d1557c;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.landing-progress {
+    font-size: 1.2rem;
+    color: #a67eaa;
+    font-weight: 700;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================
+   BUTTONS
+   ================================ */
+
+.btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.15rem;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 800;
+    text-transform: lowercase;
+    letter-spacing: 1px;
+}
+
+.btn-start,
+.btn-select {
+    background: linear-gradient(135deg, #ff69b4 0%, #d1557c 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(209, 85, 124, 0.3);
+    margin: 1rem;
+}
+
+.btn-start:hover,
+.btn-select:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(209, 85, 124, 0.4);
+}
+
+.btn-start:active,
+.btn-select:active {
+    transform: translateY(-1px);
+}
+
+.btn-back {
+    background: rgba(255, 255, 255, 0.9);
+    color: #d1557c;
+    border: 2px solid #ffb3d9;
+    margin-top: 2rem;
+    font-weight: 800;
+}
+
+.btn-back:hover {
+    background: white;
+    box-shadow: 0 8px 20px rgba(209, 85, 124, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-reward {
+    background: linear-gradient(135deg, #ff69b4 0%, #d1557c 100%);
+    color: white;
+    margin-top: 1.5rem;
+    box-shadow: 0 8px 25px rgba(209, 85, 124, 0.3);
+    font-weight: 800;
+}
+
+.btn-reward:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(209, 85, 124, 0.4);
+}
+
+/* ================================
+   GAME SELECT PAGE
+   ================================ */
+
+.game-select-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3rem;
+    border-radius: 30px;
+    box-shadow: 0 30px 80px rgba(209, 85, 124, 0.2);
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+}
+
+.game-select-content h2 {
+    font-size: 2.8rem;
+    color: #d1557c;
+    margin-bottom: 2rem;
+    font-family: 'Pacifico', cursive;
+    font-weight: 700;
+}
+
+.game-select-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* ================================
+   GAME CONTAINER
+   ================================ */
+
+.game-container {
+    background: rgba(255, 255, 255, 0.98);
+    padding: 2.5rem;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 900px;
+    height: 85vh;
+    max-height: 650px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 30px 80px rgba(209, 85, 124, 0.2);
+    z-index: 20;
+    backdrop-filter: blur(10px);
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid #ffb3d9;
+    padding-bottom: 1.5rem;
+}
+
+.game-header h2 {
+    color: #d1557c;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.game-stats {
+    font-size: 1.3rem;
+    color: #a67eaa;
+    font-weight: 800;
+}
+
+.game-stats p {
+    margin: 0;
+}
+
+/* ================================
+   HEART CATCH GAME
+   ================================ */
+
+.game-area {
+    flex: 1;
+    background: linear-gradient(180deg, #fff5f7 0%, #ffe8f0 100%);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    cursor: none;
+    box-shadow: inset 0 4px 15px rgba(209, 85, 124, 0.1);
+}
+
+.basket {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3.5rem;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.1s ease;
+}
+
+.basket:active {
+    cursor: grabbing;
+    transform: translateX(-50%) scaleY(0.95);
+}
+
+.falling-heart {
+    position: absolute;
+    font-size: 2rem;
+    animation: fall linear forwards;
+    user-select: none;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+/* ================================
+   MEMORY MATCH GAME
+   ================================ */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+    flex: 1;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: linear-gradient(180deg, #fff5f7 0%, #ffe8f0 100%);
+    border-radius: 15px;
+    overflow-y: auto;
+    box-shadow: inset 0 4px 15px rgba(209, 85, 124, 0.1);
+}
+
+.card {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #ff69b4 0%, #d1557c 100%);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(209, 85, 124, 0.25);
+    position: relative;
+    font-weight: 700;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(209, 85, 124, 0.35);
+}
+
+.card.flipped {
+    background: white;
+    color: #d1557c;
+    transform: rotateY(20deg);
+}
+
+.card.matched {
+    pointer-events: none;
+    opacity: 0.7;
+    background: rgba(209, 85, 124, 0.3);
+}
+
+/* ================================
+   PHOTO PUZZLE GAME
+   ================================ */
+
+.puzzle-container {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+    margin-bottom: 1.5rem;
+}
+
+.puzzle-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    padding: 0;
+    background: linear-gradient(180deg, #fff5f7 0%, #ffe8f0 100%);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: inset 0 4px 15px rgba(209, 85, 124, 0.1);
+    max-width: 540px;
+    margin: 0 auto;
+    border: 3px solid #ffb3d9;
+}
+
+.puzzle-piece {
+    aspect-ratio: 1;
+    cursor: pointer;
+    border: 1px solid rgba(255, 179, 217, 0.8);
+    border-radius: 0;
+    background: linear-gradient(135deg, #ff69b4 0%, #d1557c 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.puzzle-piece:hover {
+    transform: none;
+    box-shadow: 0 8px 20px rgba(209, 85, 124, 0.3);
+}
+
+.puzzle-piece.selected {
+    border-color: #d1557c;
+    box-shadow: inset 0 0 0 3px rgba(209, 85, 124, 0.75);
+    transform: none;
+}
+
+.puzzle-piece img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    cursor: pointer;
+    opacity: 1;
+    z-index: 1;
+    display: block;
+}
+
+.puzzle-piece-number {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #d1557c;
+    font-size: 0.85rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.puzzle-preview {
+    width: 190px;
+    height: 220px;
+    border-radius: 15px;
+    padding: 0.9rem;
+    box-shadow: 0 8px 25px rgba(209, 85, 124, 0.2);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.puzzle-guide-title {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #d1557c;
+    text-align: center;
+    font-weight: 800;
+}
+
+.puzzle-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.45rem;
+}
+
+.puzzle-guide-grid span {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    background: #ffe8f0;
+    color: #a65282;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+/* ================================
+   LOVE QUIZ GAME
+   ================================ */
+
+.quiz-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: linear-gradient(180deg, #fff5f7 0%, #ffe8f0 100%);
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    box-shadow: inset 0 4px 15px rgba(209, 85, 124, 0.1);
+}
+
+#quizQuestion {
+    font-size: 2rem;
+    color: #d1557c;
+    margin-bottom: 2rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.quiz-answers {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.quiz-answer-btn {
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, #ff69b4 0%, #d1557c 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(209, 85, 124, 0.25);
+    font-weight: 700;
+}
+
+.quiz-answer-btn:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(209, 85, 124, 0.35);
+}
+
+.quiz-answer-btn:active {
+    transform: translateX(5px);
+}
+
+/* ================================
+   HEART CHALLENGE GAME
+   ================================ */
+
+.challenge-heart {
+    position: absolute;
+    font-size: 3rem;
+    cursor: pointer;
+    user-select: none;
+    animation: pop 0.3s ease-out forwards;
+}
+
+.challenge-heart:hover {
+    transform: scale(1.2);
+}
+
+.challenge-heart.clicked {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes pop {
+    0% {
+        opacity: 1;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.time-up {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #d1557c;
+    font-weight: 800;
+}
+
+/* ================================
+   REWARD OVERLAY
+   ================================ */
+
+.reward-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(50, 20, 40, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.4s ease;
+    backdrop-filter: blur(5px);
+}
+
+.reward-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.reward-content {
+    background: white;
+    padding: 3.5rem;
+    border-radius: 30px;
+    text-align: center;
+    max-width: 550px;
+    box-shadow: 0 40px 100px rgba(209, 85, 124, 0.4);
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.close-reward {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #d1557c;
+    padding: 0.5rem;
+    transition: transform 0.2s;
+    font-weight: 800;
+}
+
+.close-reward:hover {
+    transform: scale(1.2);
+}
+
+#rewardTitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: #d1557c;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+#rewardMessage {
+    font-size: 1.3rem;
+    color: #a67eaa;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    font-weight: 700;
+}
+
+#rewardImage {
+    width: 100%;
+    max-width: 420px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    box-shadow: 0 15px 40px rgba(209, 85, 124, 0.3);
+    border: 3px solid #ffb3d9;
+}
+
+/* ================================
+   MUSIC TOGGLE
+   ================================ */
+
+.music-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 50;
+}
+
+#musicBtn {
+    background: linear-gradient(135deg, #ff69b4 0%, #d1557c 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 25px rgba(209, 85, 124, 0.3);
+    transition: all 0.3s ease;
+    font-weight: 700;
+}
+
+#musicBtn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 10px 35px rgba(209, 85, 124, 0.4);
+}
+
+#musicBtn.muted {
+    opacity: 0.6;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .landing-game {
+        min-width: auto;
+        min-height: auto;
+    }
+
+    .landing-hearts-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .landing-photo-strip {
+        grid-template-columns: repeat(4, minmax(54px, 1fr));
+        max-width: 300px;
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .puzzle-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 420px;
+    }
+
+    .game-container {
+        max-height: 85vh;
+    }
+
+    .puzzle-container {
+        flex-direction: column;
+    }
+
+    .puzzle-preview {
+        width: 190px;
+        height: 220px;
+    }
+
+    .reward-content {
+        margin: 1rem;
+        padding: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .landing-hearts-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .landing-photo-strip {
+        grid-template-columns: repeat(3, minmax(52px, 1fr));
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .landing-game {
+        padding: 1.5rem;
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .puzzle-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #quizQuestion {
+        font-size: 1.5rem;
+    }
+
+    .quiz-answer-btn {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
